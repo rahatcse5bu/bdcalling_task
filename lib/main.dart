@@ -34,7 +34,7 @@ class MainApp extends StatelessWidget {
         themeMode: themeController.isDarkMode.value
             ? ThemeMode.dark
             : ThemeMode.light,
-      initialRoute: isLoggedIn ? '/dashboard' : AppPages.initial,
+      initialRoute:  AppPages.initial,
       getPages: AppPages.routes,
       initialBinding: GlobalBinding(),
     );

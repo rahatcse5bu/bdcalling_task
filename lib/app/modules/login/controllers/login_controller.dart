@@ -14,7 +14,6 @@ class LoginController extends GetxController {
   final passwordController = TextEditingController();
 
   var isLoading = false.obs;
-
   Future<void> loginUser(String email, String password) async {
     isLoading.value = true;
     try {
@@ -64,12 +63,12 @@ class LoginController extends GetxController {
   }
 
   @override
-  void onClose() {
+  void dispose() {
+    // Dispose of the controllers when the widget is removed from the tree
     emailController.dispose();
     passwordController.dispose();
-    super.onClose();
+    super.dispose();
   }
-
   // Verify user (via email and activation code)
   Future<void> verifyUser(String email, String code) async {
     isLoading.value = true;
