@@ -13,15 +13,15 @@ import 'app/storage/storage_helper.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
    await AuthMiddleware.initialize(); // Pre-fetch token
-  final isLoggedIn = await StorageHelper.hasToken(); // Check if token exists
-  runApp(MainApp(isLoggedIn: isLoggedIn));
+  // final isLoggedIn = await StorageHelper.hasToken(); // Check if token exists
+  runApp(MainApp());
 
 }
 
 class MainApp extends StatelessWidget {
-  final bool isLoggedIn;
+  final bool? isLoggedIn;
 
-  MainApp({required this.isLoggedIn});
+  MainApp({ this.isLoggedIn});
   final ThemeController themeController = Get.put(ThemeController());
 
   @override
