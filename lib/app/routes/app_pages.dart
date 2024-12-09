@@ -1,3 +1,4 @@
+import 'package:bdcalling_task/app/modules/login/widgets/verify_user.dart';
 import 'package:get/get.dart';
 
 import '../APIs/auth_middleware/auth_middleware.dart';
@@ -52,25 +53,31 @@ class AppPages {
     //   binding: SingleContestBinding(),
     // ),
 GetPage(
-  name: '/profile',
+  name: Routes.profile,
   page: () => ProfileView(),
   binding: ProfileBinding(),
 ),
 GetPage(
-  name: '/profile/edit',
+  name: Routes.editProfile,
   page: () => ProfileEditView(),
   binding: ProfileBinding(),
 ),
       GetPage(
-          name: '/tasks',
+          name:Routes.tasks,
           page: () => TaskListView(),
           binding: TaskBinding(),
             middlewares: [AuthMiddleware()], // Attach middleware here
         ),
         GetPage(
-          name: '/create-task',
+          name: Routes.createTask,
           page: () => TaskCreateView(),
           binding: TaskBinding(),
+            middlewares: [AuthMiddleware()], // Attach middleware here
+        ),
+        GetPage(
+          name: Routes.verification,
+          page: () => VerificationView(),
+          binding: DashboardBinding(),
             middlewares: [AuthMiddleware()], // Attach middleware here
         ),
   ];
@@ -85,6 +92,7 @@ class Routes {
   static const tasks = '/tasks';
   static const profile = '/profile';
   static const editProfile = '/profile/edit';
+  static const verification = '/verification';
 
     // Dynamic route generator for single contest
   // static String singleBiodata(String id) => '/single-biodata/$id';

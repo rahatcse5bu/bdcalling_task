@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:bdcalling_task/app/constant/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
@@ -13,7 +14,10 @@ class DashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dashboard'),
+        title: Text('Dashboard', style: TextStyle(color:Colors.white),),
+        centerTitle: true, 
+        backgroundColor: AppColors.primary,
+         iconTheme: IconThemeData(color: Colors.white), // Set the hamburger icon color to white
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
@@ -24,6 +28,7 @@ class DashboardView extends StatelessWidget {
         ],
       ),
       drawer: Drawer(
+backgroundColor: AppColors.primary,
         child: FutureBuilder<Map<String, dynamic>?>(
           future: StorageHelper.getUserInfo(),
           builder: (context, snapshot) {
@@ -40,7 +45,7 @@ class DashboardView extends StatelessWidget {
               children: [
                 DrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: AppColors.secondary,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,31 +68,31 @@ class DashboardView extends StatelessWidget {
                 ),
                 // Navigation Items
                 ListTile(
-                  leading: Icon(Icons.task),
-                  title: Text('Tasks'),
+                  leading: Icon(Icons.task,color: Colors.white,),
+                  title: Text('Tasks',  style: TextStyle(color: Colors.white)),
                   onTap: () {
                     Get.to(() => TaskListView());
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text('My Profile'),
+                  leading: Icon(Icons.person,color: Colors.white,),
+                  title: Text('My Profile',  style: TextStyle(color: Colors.white)),
                   onTap: () {
                     Get.toNamed(Routes.profile);
                   },
                 ),
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.person),
-                  title: Text('Edit Profile'),
+                  leading: Icon(Icons.person,color: Colors.white,),
+                  title: Text('Edit Profile',  style: TextStyle(color: Colors.white)),
                   onTap: () {
                     Get.toNamed(Routes.editProfile);
                   },
                 ),
                 Divider(),
                 ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text('Logout'),
+                  leading: Icon(Icons.logout,color: Colors.white,),
+                  title: Text('Logout',  style: TextStyle(color: Colors.white)),
                   onTap: () {
                     controller.logout();
                   },

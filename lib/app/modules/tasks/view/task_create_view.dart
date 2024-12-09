@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../common/custom_appbar.dart';
+import '../../../constant/app_color.dart';
+import '../../../routes/app_pages.dart';
 import '../controller/task_controller.dart';
 
 
@@ -12,9 +15,10 @@ class TaskCreateView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Create Task'),
-      ),
+            appBar: CustomAppBar.appBar(onLeadingPressed: (){
+              Get.toNamed(Routes.tasks);
+            }, title: "Add Task", centerTitle: true, backgroundColor: AppColors.primary,leadingIcon: Icons.arrow_back_ios),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

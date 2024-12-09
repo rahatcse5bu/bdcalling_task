@@ -26,21 +26,20 @@ class LoginController extends GetxController {
           Get.snackbar('Error', error.message);
         },
         (data) async {
-
-             // Save the token to SharedPreferences
+          // Save the token to SharedPreferences
           await StorageHelper.setToken(data.token);
-        // Fetch and save user profile
-        final profileResponse = await _apiHelper.getProfile();
-        profileResponse.fold(
-          (error) {
-            Get.snackbar('Error', 'Failed to fetch user profile.');
-          },
-          (profileData) async {
-            await StorageHelper.setUserInfo(profileData.body['data']);
-          },
-        );
+          // Fetch and save user profile
+          final profileResponse = await _apiHelper.getProfile();
+          profileResponse.fold(
+            (error) {
+              Get.snackbar('Error', 'Failed to fetch user profile.');
+            },
+            (profileData) async {
+              await StorageHelper.setUserInfo(profileData.body['data']);
+            },
+          );
           // Navigate to the dashboard
-          Get.snackbar('Success', 'Login successful');
+          Get.snackbar('Success', 'Login Successful');
           Get.toNamed(Routes.dashboard); // Navigate to the dashboard
         },
       );
@@ -50,6 +49,7 @@ class LoginController extends GetxController {
       isLoading.value = false;
     }
   }
+
   // Check if user is already logged in
   Future<bool> isLoggedIn() async {
     return await StorageHelper.hasToken();
@@ -58,12 +58,48 @@ class LoginController extends GetxController {
   // Logout user
   Future<void> logout() async {
     await StorageHelper.removeToken(); // Clear the token
+    await StorageHelper.removeUserInfo(); // Clear the token
+
     Get.offAllNamed('/login'); // Navigate to login screen
   }
+
   @override
   void onClose() {
     emailController.dispose();
     passwordController.dispose();
     super.onClose();
+  }
+
+  // Verify user (via email and activation code)
+  Future<void> verifyUser(String email, String code) async {
+    isLoading.value = true;
+    try {
+      final payload = {
+        'email': email,
+        'code': code,
+      };
+
+      final response = await _apiHelper.activateUser(payload);
+
+      response.fold(
+        (error) {
+          Get.snackbar(
+              'Error', error.message); // Show error if verification fails
+        },
+        (data) {
+          // Save verification status
+          StorageHelper.setUserVerified(true);
+
+          Get.snackbar('Success',
+              'Account activated successfully!'); // Show success if verification is successful
+          // Optionally, navigate to a different screen or update the UI accordingly
+          Get.toNamed(Routes.dashboard);
+        },
+      );
+    } catch (e) {
+      Get.snackbar('Error', 'An unexpected error occurred.');
+    } finally {
+      isLoading.value = false;
+    }
   }
 }

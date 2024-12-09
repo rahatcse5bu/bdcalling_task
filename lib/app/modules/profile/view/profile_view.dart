@@ -1,6 +1,8 @@
 import 'package:bdcalling_task/app/common/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../constant/app_color.dart';
+import '../../../routes/app_pages.dart';
 import '../controller/profile_controller.dart';
 
 class ProfileView extends StatelessWidget {
@@ -11,7 +13,10 @@ class ProfileView extends StatelessWidget {
     controller.fetchProfile(); // Fetch profile on load
 
     return Scaffold(
-      appBar: CustomAppBar.appBar(title: "Profile", centerTitle: true, ),
+              appBar: CustomAppBar.appBar(onLeadingPressed: (){
+              Get.toNamed(Routes.dashboard);
+            }, title: "Profile", centerTitle: true, backgroundColor: AppColors.primary,leadingIcon: Icons.arrow_back_ios),
+
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(child: CircularProgressIndicator());

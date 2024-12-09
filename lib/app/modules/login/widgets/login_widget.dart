@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginWidget extends StatelessWidget {
   final TextEditingController emailController;
@@ -15,6 +16,7 @@ class LoginWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         TextField(
           controller: emailController,
@@ -31,6 +33,15 @@ class LoginWidget extends StatelessWidget {
           onPressed: onLoginPressed,
           child: Text('Login'),
         ),
+                Center(
+                      child: GestureDetector(
+                        onTap: (){
+                          Get.toNamed('register');
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                          child: Text("Register"))),
+                    )
       ],
     );
   }

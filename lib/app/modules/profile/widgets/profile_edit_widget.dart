@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../common/custom_appbar.dart';
+import '../../../constant/app_color.dart';
+import '../../../routes/app_pages.dart';
 import '../controller/profile_controller.dart';
 
 class ProfileEditView extends StatelessWidget {
@@ -16,7 +18,10 @@ class ProfileEditView extends StatelessWidget {
     controller.fetchProfile();
 
     return Scaffold(
-      appBar: CustomAppBar.appBar(title: "Edit Profile", centerTitle: true, ),
+            appBar: CustomAppBar.appBar(onLeadingPressed: (){
+              Get.toNamed(Routes.dashboard);
+            }, title: "Edit Profile", centerTitle: true, backgroundColor: AppColors.primary,leadingIcon: Icons.arrow_back_ios),
+
 
       body: Obx(() {
         // Show loading spinner while the profile is being fetched

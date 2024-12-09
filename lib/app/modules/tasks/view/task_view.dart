@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../common/custom_appbar.dart';
+import '../../../constant/app_color.dart';
+import '../../../routes/app_pages.dart';
 import '../controller/task_controller.dart';
 import '../widgets/task_item_widgets.dart';
 import 'task_create_view.dart';
@@ -10,9 +13,10 @@ class TaskListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Tasks'),
-      ),
+            appBar: CustomAppBar.appBar(onLeadingPressed: (){
+              Get.toNamed(Routes.dashboard);
+            }, title: "Task List", centerTitle: true, backgroundColor: AppColors.primary,leadingIcon: Icons.arrow_back_ios),
+
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(child: CircularProgressIndicator());
