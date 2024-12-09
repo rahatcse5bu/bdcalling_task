@@ -1,3 +1,4 @@
+import 'package:bdcalling_task/app/common/custom_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controller/profile_controller.dart';
@@ -10,9 +11,7 @@ class ProfileView extends StatelessWidget {
     controller.fetchProfile(); // Fetch profile on load
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('My Profile'),
-      ),
+      appBar: CustomAppBar.appBar(title: "Profile", centerTitle: true, ),
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(child: CircularProgressIndicator());
@@ -28,6 +27,7 @@ class ProfileView extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CircleAvatar(
                 radius: 50,

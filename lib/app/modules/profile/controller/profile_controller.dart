@@ -11,24 +11,24 @@ class ProfileController extends GetxController {
   var isLoading = false.obs; // Loading indicator
   var error = ''.obs; // Error message
 
-  // Fetch user profile
-  Future<void> fetchProfile() async {
-    isLoading.value = true;
-    error.value = '';
-    try {
-      final result = await _apiHelper.getProfile();
-      result.fold(
-        (customError) => error.value = customError.message,
-        (response) {
-          profile.value = ProfileModel.fromJson(response.body['data']);
-        },
-      );
-    } catch (e) {
-      error.value = 'An unexpected error occurred.';
-    } finally {
-      isLoading.value = false;
-    }
+Future<void> fetchProfile() async {
+  isLoading.value = true;
+  error.value = '';
+  try {
+    final result = await _apiHelper.getProfile();
+    result.fold(
+      (customError) => error.value = customError.message,
+      (response) {
+        profile.value = ProfileModel.fromJson(response.body['data']);
+      },
+    );
+  } catch (e) {
+    error.value = 'An unexpected error occurred.';
+  } finally {
+    isLoading.value = false;
   }
+}
+
 
   // Update user profile
   Future<void> updateProfile(FormData formData) async {

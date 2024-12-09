@@ -29,7 +29,16 @@ class LoginController extends GetxController {
 
              // Save the token to SharedPreferences
           await StorageHelper.setToken(data.token);
-
+        // Fetch and save user profile
+        final profileResponse = await _apiHelper.getProfile();
+        profileResponse.fold(
+          (error) {
+            Get.snackbar('Error', 'Failed to fetch user profile.');
+          },
+          (profileData) async {
+            await StorageHelper.setUserInfo(profileData.body['data']);
+          },
+        );
           // Navigate to the dashboard
           Get.snackbar('Success', 'Login successful');
           Get.toNamed(Routes.dashboard); // Navigate to the dashboard

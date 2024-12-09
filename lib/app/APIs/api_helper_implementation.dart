@@ -41,14 +41,15 @@ class ApiHelperImpl extends GetConnect implements ApiHelper {
       return response;
     });
 
-        // Add Bearer Token to Headers
-    httpClient.addAuthenticator<Object?>((request) async {
-      final token = await StorageHelper.getToken(); // Get token from SharedPreferences
-      if (token != null) {
-        request.headers['Authorization'] = 'Bearer $token';
-      }
-      return request;
-    });
+ httpClient.addAuthenticator<Object?>((request) async {
+  final token = await StorageHelper.getToken();
+  log('Authorization Token: $token'); // Log the token
+  if (token != null) {
+    request.headers['Authorization'] = 'Bearer $token';
+  }
+  return request;
+});
+
   }
 
   Future<Either<CustomError, T>> _processResponse<T>(
@@ -169,6 +170,7 @@ Future<Either<CustomError, TaskModel>> createTask(Map<String, dynamic> payload) 
 Future<Either<CustomError, Response>> getProfile() async {
   try {
     final response = await get('user/my-profile');
+    log("profile res: ${response.body}");
     if (response.statusCode == 200) {
       return Right(response);
     } else {

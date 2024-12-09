@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageHelper {
   static const String _tokenKey = "auth_token";
+  static const String _userInfoKey = "user_info";
 
   // Set token
   static Future<void> setToken(String token) async {
@@ -25,5 +28,29 @@ class StorageHelper {
   static Future<bool> hasToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.containsKey(_tokenKey);
+  }
+
+
+
+   // Set user information
+  static Future<void> setUserInfo(Map<String, dynamic> userInfo) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_userInfoKey, jsonEncode(userInfo)); // Store as JSON string
+  }
+
+  // Get user information
+  static Future<Map<String, dynamic>?> getUserInfo() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final userInfoJson = prefs.getString(_userInfoKey);
+    if (userInfoJson != null) {
+      return jsonDecode(userInfoJson); // Decode JSON string to Map
+    }
+    return null;
+  }
+
+  // Remove user information
+  static Future<void> removeUserInfo() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_userInfoKey);
   }
 }
