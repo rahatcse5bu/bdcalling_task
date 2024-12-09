@@ -10,6 +10,9 @@ import '../modules/home/view/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 
+import '../modules/profile/binding/profile_binding.dart';
+import '../modules/profile/view/profile_view.dart';
+import '../modules/profile/widgets/profile_edit_widget.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/tasks/binding/task_binding.dart';
@@ -48,7 +51,16 @@ class AppPages {
     //   page: () => SingleContestView(),
     //   binding: SingleContestBinding(),
     // ),
-
+GetPage(
+  name: '/profile',
+  page: () => ProfileView(),
+  binding: ProfileBinding(),
+),
+GetPage(
+  name: '/profile/edit',
+  page: () => ProfileEditView(),
+  binding: ProfileBinding(),
+),
       GetPage(
           name: '/tasks',
           page: () => TaskListView(),
@@ -71,6 +83,8 @@ class Routes {
   static const dashboard = '/dashboard';
   static const createTask = '/create-task';
   static const tasks = '/tasks';
+  static const profile = '/profile';
+  static const editProfile = '/profile/edit';
 
     // Dynamic route generator for single contest
   // static String singleBiodata(String id) => '/single-biodata/$id';
